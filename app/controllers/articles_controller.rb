@@ -6,8 +6,15 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
     @articles = Article.all
+    @count = 0
+    for i in @articles
+      @count = @count+1
+    end
     respond_with @articles do |format|
-      format.json { render json: { "Articles" => @articles.as_json(:except => [:created_at,:updated_at], :root => false) }.to_json }
+      #format.json { render json: { "Articles" => @articles.as_json(:except => [:created_at,:updated_at], :root => false) }.to_json}
+      format.json { render json: { "Articles" => @articles.as_json(:except => [:created_at,:updated_at], :root => false),
+        "Total_elements" =>  @count.as_json,
+        "Successs" => true}.to_json}
       format.xml  { render :xml => @articles.to_xml(:except => [:created_at,:updated_at])} 
     end
   end

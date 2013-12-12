@@ -6,9 +6,15 @@ class StoresController < ApplicationController
   # GET /stores.json
   def index
     @stores = Store.all
+    @count = 0
+    for i in @stores
+      @count = @count+1
+    end
     respond_with @stores do |format|
       #format.json { render :text => @stores.to_json(:only => [ :id, :name ]) }
-      format.json { render json: { "Stores" => @stores.as_json(:except => [:created_at,:updated_at],:root => false) }.to_json}
+      format.json { render json: { "Stores" => @stores.as_json(:except => [:created_at,:updated_at],:root => false),
+      "Total_elements" =>  @count.as_json,
+      "Successs" => true }.to_json}
       format.xml  { render :xml => @stores.to_xml(:except => [:created_at,:updated_at])}  
     end
   end
@@ -18,9 +24,14 @@ class StoresController < ApplicationController
   def show
     @stores = Store.find(params[:id])
     @articles = @stores.articles
-
+    @count = 0
+    for i in @articles
+      @count = @count+1
+    end
     respond_with @stores do |format|
-      format.json { render json: { "Store" => [@stores.as_json(:only => [:name])] ,"Articles" => @articles.as_json(:except => [:created_at,:updated_at], :root => false)}.to_json}
+      format.json { render json: {"Articles" => @articles.as_json(:except => [:created_at,:updated_at], :root => false),
+        "Total_elements" =>  @count.as_json,
+        "Successs" => true}.to_json}
       #format.json { render json: {"Store" => @stores.as_json(:only => [:name], :root => false)}.to_json}
       format.xml  { render :xml => @articles.to_xml(:except => [:created_at,:updated_at])} 
     end
