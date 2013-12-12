@@ -8,7 +8,7 @@ class StoresController < ApplicationController
     @stores = Store.all
     respond_with @stores do |format|
       #format.json { render :text => @stores.to_json(:only => [ :id, :name ]) }
-      format.json { render json: { "Stores" => @stores.as_json(:only => [ :id, :name ], :root => false) }.to_json }
+      format.json { render json: { "Stores" => @stores.as_json(:except => [:created_at,:updated_at],:root => false) }.to_json }
     end
   end
 
@@ -19,7 +19,7 @@ class StoresController < ApplicationController
     @articles = @stores.articles
 
     respond_with @stores do |format|
-      format.json { render json: { "Store" => [@stores.as_json(:only => [:name])] ,"Articles" => @articles.as_json(:only => [ :id, :name ], :root => false)}.to_json}
+      format.json { render json: { "Store" => [@stores.as_json(:only => [:name])] ,"Articles" => @articles.as_json(:except => [:created_at,:updated_at], :root => false)}.to_json}
       #format.json { render json: {"Store" => @stores.as_json(:only => [:name], :root => false)}.to_json}
 
     end
