@@ -1,15 +1,26 @@
 class StoresController < ApplicationController
   before_action :set_store, only: [:show, :edit, :update, :destroy]
 
+  respond_to :html, :js, :xml, :json
   # GET /stores
   # GET /stores.json
   def index
     @stores = Store.all
+    respond_with @stores do |format|
+      #format.json { render :text => @stores.to_json(:only => [ :id, :name ]) }
+      format.json { render json: { "Stores" => @stores.as_json(:only => [ :id, :name ], :root => false) }.to_json }
+    end
   end
 
   # GET /stores/1
   # GET /stores/1.json
   def show
+    @stores = Store.find(params[:id])
+    @articles = @stores.articles
+
+    respond_with @stores do |format|
+      format.json { render json: { "Articles" => @articles.as_json(:only => [ :id, :name ], :root => false) }.to_json }
+    end
   end
 
   # GET /stores/new

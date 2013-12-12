@@ -1,4 +1,6 @@
 Superzapatos::Application.routes.draw do
+  resources :articles
+
   resources :stores
 
   root :to => "stores#index"
