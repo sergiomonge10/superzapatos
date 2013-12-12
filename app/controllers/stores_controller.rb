@@ -19,7 +19,9 @@ class StoresController < ApplicationController
     @articles = @stores.articles
 
     respond_with @stores do |format|
-      format.json { render json: { "Articles" => @articles.as_json(:only => [ :id, :name ], :root => false) }.to_json }
+      format.json { render json: { "Store" => [@stores.as_json(:only => [:name])] ,"Articles" => @articles.as_json(:only => [ :id, :name ], :root => false)}.to_json}
+      #format.json { render json: {"Store" => @stores.as_json(:only => [:name], :root => false)}.to_json}
+
     end
   end
 
