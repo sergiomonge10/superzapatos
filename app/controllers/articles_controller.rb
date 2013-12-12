@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all
     respond_with @articles do |format|
-      format.json { render json: { "Articles" => @articles.as_json(:include => [:store],:only => [ :id, :name, :store ], :root => false) }.to_json }
+      format.json { render json: { "Articles" => @articles.as_json(:only => [ :id, :name, :store ], :root => false) }.to_json }
     end
   end
 
