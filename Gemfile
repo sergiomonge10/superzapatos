@@ -11,6 +11,9 @@ gem 'rails', '4.0.1'
 
 gem 'heroku'
 
+gem 'rabl'
+gem 'oj'
+
 group :development do
   gem 'sqlite3', '1.3.8'
 end

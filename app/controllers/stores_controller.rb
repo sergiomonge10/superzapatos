@@ -8,7 +8,8 @@ class StoresController < ApplicationController
     @stores = Store.all
     respond_with @stores do |format|
       #format.json { render :text => @stores.to_json(:only => [ :id, :name ]) }
-      format.json { render json: { "Stores" => @stores.as_json(:except => [:created_at,:updated_at],:root => false) }.to_json }
+      format.json { render json: { "Stores" => @stores.as_json(:except => [:created_at,:updated_at],:root => false) }.to_json}
+      format.xml  { render :xml => @stores.to_xml(:except => [:created_at,:updated_at])}  
     end
   end
 
@@ -21,7 +22,7 @@ class StoresController < ApplicationController
     respond_with @stores do |format|
       format.json { render json: { "Store" => [@stores.as_json(:only => [:name])] ,"Articles" => @articles.as_json(:except => [:created_at,:updated_at], :root => false)}.to_json}
       #format.json { render json: {"Store" => @stores.as_json(:only => [:name], :root => false)}.to_json}
-
+      format.xml  { render :xml => @articles.to_xml(:except => [:created_at,:updated_at])} 
     end
   end
 

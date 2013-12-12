@@ -8,6 +8,7 @@ class ArticlesController < ApplicationController
     @articles = Article.all
     respond_with @articles do |format|
       format.json { render json: { "Articles" => @articles.as_json(:except => [:created_at,:updated_at], :root => false) }.to_json }
+      format.xml  { render :xml => @articles.to_xml(:except => [:created_at,:updated_at])} 
     end
   end
 
